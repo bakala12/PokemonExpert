@@ -18,14 +18,12 @@ ask_question(X):-
 check(X):- db_facts(X),!.
 check(X):- not(db_denied_facts(X)),!,ask_question(X).
 
-first_char_uppercase(WordLC, WordUC) :-
-    atom_chars(WordLC, [FirstChLow|LWordLC]),
-    atom_chars(FirstLow, [FirstChLow]),
-    lwrupr(FirstLow, FirstUpp),
-    atom_chars(FirstUpp, [FirstChUpp]),
-    atom_chars(WordUC, [FirstChUpp|LWordLC]).
-
-lwrupr(Low,Upp) :- upcase_atom(Low,Upp).
+first_char_uppercase(Word, Result) :-
+    atom_chars(Word, [FirstCharacter|RemainingCharacters]),
+    atom_chars(FirstCharacter, [FirstCharacter]),
+    upcase_atom(FirstCharacter, FirstCharacterUpper),
+    atom_chars(FirstCharacterUpper, [FirstCharacterUpper]),
+    atom_chars(Result, [FirstCharacterUpper|RemainingCharacters]).
 
 print_answer(X):-
     write("Twój pokemon to: "),
